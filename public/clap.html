@@ -1,0 +1,106 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no" />
+  <title>Applause – Clap!</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="clap-body">
+
+  <div class="clap-layout">
+
+    <!-- Status bar -->
+    <header class="clap-header">
+      <a href="/" class="back-link">← Dashboard</a>
+      <div class="now-playing">
+        <span class="now-playing-label">ON STAGE</span>
+        <span class="now-playing-name" id="now-playing-name">—</span>
+      </div>
+    </header>
+
+    <!-- Mode toggle -->
+    <div class="mode-toggle" id="mode-toggle">
+      <button class="mode-btn active" data-mode="shake">👏 Shake</button>
+      <button class="mode-btn" data-mode="wave">🌊 Wave</button>
+    </div>
+
+    <!-- Clap area -->
+    <main class="clap-main">
+
+      <!-- Permission prompt (iOS) -->
+      <div id="permission-prompt" class="permission-prompt" hidden>
+        <p>Motion access is needed to detect shaking.</p>
+        <button id="request-permission-btn" class="btn btn-primary btn-large">Enable Shake</button>
+      </div>
+
+      <!-- Main clap circle -->
+      <div class="clap-circle-wrapper" id="clap-circle-wrapper">
+        <div class="clap-circle" id="clap-circle">
+          <div class="clap-icon">👏</div>
+          <div class="clap-instruction" id="clap-instruction">SHAKE TO APPLAUD</div>
+          <div class="clap-tap-hint" id="clap-tap-hint">tap if no motion</div>
+        </div>
+
+        <!-- Ripple rings (added dynamically) -->
+        <div class="ripple-layer" id="ripple-layer"></div>
+      </div>
+
+      <!-- Waiting overlay -->
+      <div class="waiting-overlay" id="waiting-overlay">
+        <div class="waiting-icon">🎤</div>
+        <div class="waiting-text">Waiting for someone to go on stage…</div>
+      </div>
+
+    </main>
+
+    <!-- Stats bar -->
+    <footer class="clap-footer">
+      <div class="stat-card">
+        <div class="stat-value" id="my-claps">0</div>
+        <div class="stat-label">YOUR CLAPS</div>
+      </div>
+      <div class="stat-divider"></div>
+      <div class="stat-card">
+        <div class="stat-value" id="total-claps">0</div>
+        <div class="stat-label">TOTAL CLAPS</div>
+      </div>
+    </footer>
+
+    <!-- Sound picker -->
+    <div class="sound-picker">
+      <span class="sound-picker-label">SOUND</span>
+      <div class="sound-options" id="sound-options">
+        <button class="sound-btn active" data-sound="claps">👏 Claps</button>
+        <button class="sound-btn" data-sound="snaps">✨ Snaps</button>
+        <button class="sound-btn" data-sound="whistle">📣 Whistle</button>
+      </div>
+    </div>
+
+    <!-- QR code share -->
+    <div class="qr-share">
+      <span class="qr-share-label">SHARE WITH FRIENDS</span>
+      <div id="qr-code"></div>
+    </div>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/qrcodejs/1.0.0/qrcode.min.js"
+          integrity="sha512-CNgIRecGo7nphbeZ04Sc13ka07paqdeTu0WR1IM4kNcpmBAXAIn1AuD5LS2HkQWnik5xYBdlGM48w/5JYzO5w=="
+          crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+  <script src="/js/clap.js"></script>
+  <script>
+    new QRCode(document.getElementById('qr-code'), {
+      text: 'https://applause-131901155010.us-central1.run.app/clap.html',
+      width: 140,
+      height: 140,
+      colorDark: '#ffffff',
+      colorLight: '#13131f',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  </script>
+</body>
+</html>

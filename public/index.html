@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Applause – Dashboard</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600;700;900&display=swap" rel="stylesheet" />
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body class="dashboard-body">
+
+  <div class="layout">
+
+    <!-- ── Sidebar ─────────────────────────────────────────────── -->
+    <aside class="sidebar">
+
+      <div class="logo">
+        <span class="logo-icon">👏</span>
+        <div>
+          <h1 class="logo-title">Applause</h1>
+          <span class="logo-sub">Dashboard</span>
+        </div>
+      </div>
+
+      <!-- Set performer form -->
+      <section class="panel">
+        <h2 class="panel-title">Set Performer</h2>
+        <form id="performer-form" class="performer-form">
+          <input
+            type="text"
+            id="performer-input"
+            class="text-input"
+            placeholder="Enter name…"
+            maxlength="100"
+            autocomplete="off"
+            required
+          />
+          <button type="submit" class="btn btn-primary">Go Live</button>
+        </form>
+        <p id="form-error" class="form-error" hidden></p>
+      </section>
+
+      <!-- Leaderboard -->
+      <section class="panel flex-1">
+        <h2 class="panel-title">Leaderboard</h2>
+        <ul id="leaderboard" class="leaderboard">
+          <li class="empty-state">No performers yet</li>
+        </ul>
+      </section>
+
+      <!-- Clap page link -->
+      <div class="clap-link-box">
+        <p class="clap-link-label">Audience clap page</p>
+        <a href="/clap.html" target="_blank" rel="noopener" class="clap-url" id="clap-url"></a>
+      </div>
+
+    </aside>
+
+    <!-- ── Stage area ──────────────────────────────────────────── -->
+    <main class="stage">
+
+      <div class="stage-inner" id="stage-inner">
+
+        <div class="live-badge" id="live-badge" hidden>● LIVE</div>
+
+        <div class="performer-display">
+          <div class="on-stage-label">ON STAGE</div>
+          <div class="performer-name" id="performer-name">—</div>
+        </div>
+
+        <div class="applause-display">
+          <div class="applause-number" id="applause-number">0</div>
+          <div class="applause-unit">CLAPS</div>
+
+          <!-- Animated equalizer bars -->
+          <div class="eq-bars" id="eq-bars">
+            <span class="eq-bar" style="--delay:0.00s"></span>
+            <span class="eq-bar" style="--delay:0.07s"></span>
+            <span class="eq-bar" style="--delay:0.14s"></span>
+            <span class="eq-bar" style="--delay:0.21s"></span>
+            <span class="eq-bar" style="--delay:0.28s"></span>
+            <span class="eq-bar" style="--delay:0.35s"></span>
+            <span class="eq-bar" style="--delay:0.07s"></span>
+            <span class="eq-bar" style="--delay:0.14s"></span>
+            <span class="eq-bar" style="--delay:0.00s"></span>
+            <span class="eq-bar" style="--delay:0.21s"></span>
+            <span class="eq-bar" style="--delay:0.28s"></span>
+            <span class="eq-bar" style="--delay:0.35s"></span>
+          </div>
+
+          <!-- Applause meter bar -->
+          <div class="meter-track">
+            <div class="meter-fill" id="meter-fill"></div>
+            <div class="meter-glow" id="meter-glow"></div>
+          </div>
+        </div>
+
+      </div>
+
+    </main>
+
+  </div>
+
+  <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/dashboard.js"></script>
+</body>
+</html>
