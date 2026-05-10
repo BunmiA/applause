@@ -49,9 +49,13 @@
         </ul>
       </section>
 
+      <!-- Logout -->
+      <a href="/logout" class="btn btn-logout">Log out</a>
+
       <!-- Clap page link -->
       <div class="clap-link-box">
         <p class="clap-link-label">Audience clap page</p>
+        <div id="clap-qr"></div>
         <a href="/clap.html" target="_blank" rel="noopener" class="clap-url" id="clap-url"></a>
       </div>
 
@@ -103,6 +107,17 @@
   </div>
 
   <script src="/socket.io/socket.io.js"></script>
+  <script src="/js/qrcode.min.js"></script>
   <script src="/js/dashboard.js"></script>
+  <script>
+    new QRCode(document.getElementById('clap-qr'), {
+      text: location.origin + '/clap.html',
+      width: 160,
+      height: 160,
+      colorDark: '#ffffff',
+      colorLight: '#13131f',
+      correctLevel: QRCode.CorrectLevel.M
+    });
+  </script>
 </body>
 </html>
