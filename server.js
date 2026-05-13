@@ -15,7 +15,21 @@ const server = http.createServer(app);
 const io = new Server(server);
 
 // ── Redis + Session ───────────────────────────────────────────────────────────
-const redisClient = createClient({ url: process.env.REDIS_URL || 'redis://localhost:6379' });
+const redisClient = createClient({
+  url: process.env.REDIS_URL || 'redis://localhost:6379',
+  socket: {
+    reconnectStrategy: (retries) => {
+      if (retries > 10) {
+        console.error('Redis: too many reconnect attempts, giving up');
+        return new Error('Redis reconnect limit reached');
+      }
+      const delay = Math.min(retries * 200, 3000); // back off up to 3s
+      console.warn(`Redis: reconnecting in ${delay}ms (attempt ${retries})...`);
+      return delay;
+    },
+  },
+});
+redisClient.on('error', (err) => console.error('Redis client error:', err));
 redisClient.connect().catch((err) => console.error('Redis connection error:', err));
 
 app.use(session({
